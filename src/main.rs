@@ -2,15 +2,34 @@ use sharks::{ Sharks, Share };
 use std::{ str, env };
 
 fn main() {
+    // get command line arguments
     let args: Vec<String> = env::args().collect();
-    println!("{:?}", args);
-    if args.len() < 4 {
-        println!("Too few arguments, exiting.");
+    //println!("{:?}", args);
+
+    if args.len() <= 1 {
+        println!("Too few arguments, exiting");
         return;
     }
 
+    let first_arg = &args[1];
+    
+    let help_strings: Vec<String> = vec![String::from("-h"),
+                                         String::from("--help"),
+                                         String::from("help")];
+    if help_strings.contains(first_arg) {
+        print_help();
+        return;
+    }
+    
+    if args.len() < 5 {
+        println!("Too few arguments, exiting.");
+        return;
+    }
+    
+    let file_name = &args[2];
+
     // parse the shares and check to ensure they're good
-    let (minimum_shares, num_shares) = match get_shares(&args[2], &args[3]) {
+    let (minimum_shares, num_shares) = match get_shares(&args[3], &args[4]) {
         Some((min, max)) => (min, max),
         None => {
             println!("Exiting...");
@@ -21,11 +40,12 @@ fn main() {
     // Set a minimum threshold of shares
     let sharks = Sharks(minimum_shares as u8);
     // get the secret
-    let dealer = sharks.dealer((&args[1]).as_bytes());
+    let dealer = sharks.dealer((&args[2]).as_bytes());
     // Get number of shares
     let shares: Vec<Share> = dealer.take(num_shares as usize).collect();
 
-    println!("Breaking secret into {} shares, requiring {} to recover",
+    println!("Breaking {} into {} shares, requiring {} to recover",
+             file_name,
              num_shares,
              minimum_shares);
     
@@ -69,4 +89,8 @@ fn get_shares(minimum: &String, maximum: &String) -> Option<(u8, usize)> {
     }
     
     Some((minimum_as_number as u8, maximum_as_number as usize))
+}
+
+fn print_help() {
+    println!("Help is in work...");
 }
