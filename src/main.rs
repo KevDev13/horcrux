@@ -1,6 +1,9 @@
 use sharks::{ Sharks, Share };
 use std::{ str, env };
 
+mod help;
+use help::*;
+
 fn main() {
     // get command line arguments
     let args: Vec<String> = env::args().collect();
@@ -89,8 +92,4 @@ fn get_shares(minimum: &String, maximum: &String) -> Option<(u8, usize)> {
     }
     
     Some((minimum_as_number as u8, maximum_as_number as usize))
-}
-
-fn print_help() {
-    println!("Help is in work...");
 }
