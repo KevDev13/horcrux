@@ -2,9 +2,11 @@
 use std::{ str, env };
 
 mod help;
-use help::*;
 mod split;
+mod recover;
+use help::*;
 use split::*;
+use recover::*;
 
 const TOO_FEW_ARGS_STRING: &str = "Too few arguments, exiting...";
 
@@ -26,7 +28,10 @@ fn main() {
     let split_strings: Vec<String> = vec![String::from("-s"),
                                           String::from("--split"),
                                           String::from("split")];
-
+    let recover_strings: Vec<String> = vec![String::from("-r"),
+                                            String::from("--recover"),
+                                            String::from("recover")];
+    
     if help_strings.contains(first_arg) {
         print_help();
         return;
@@ -48,6 +53,9 @@ fn main() {
         };
 
         split_shares(file_name.to_string(), minimum_shares, num_shares);
+    }
+    else if recover_strings.contains(first_arg) {
+        recover_shares();
     }
     else {
         println!("Unknown qualifier. Use \"horcrux -h\" or \"horcrux --help \" for help.");
