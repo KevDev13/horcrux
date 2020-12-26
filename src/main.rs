@@ -1,8 +1,12 @@
-use sharks::{ Sharks, Share };
+//use sharks::{ Sharks, Share };
 use std::{ str, env };
 
 mod help;
 use help::*;
+mod split;
+use split::*;
+
+const TOO_FEW_ARGS_STRING: &str = "Too few arguments, exiting...";
 
 fn main() {
     // get command line arguments
@@ -10,7 +14,7 @@ fn main() {
     //println!("{:?}", args);
 
     if args.len() <= 1 {
-        println!("Too few arguments, exiting");
+        println!("{}", TOO_FEW_ARGS_STRING);
         return;
     }
 
@@ -19,42 +23,35 @@ fn main() {
     let help_strings: Vec<String> = vec![String::from("-h"),
                                          String::from("--help"),
                                          String::from("help")];
+    let split_strings: Vec<String> = vec![String::from("-s"),
+                                          String::from("--split"),
+                                          String::from("split")];
+
     if help_strings.contains(first_arg) {
         print_help();
         return;
     }
-    
-    if args.len() < 5 {
-        println!("Too few arguments, exiting.");
-        return;
-    }
-    
-    let file_name = &args[2];
-
-    // parse the shares and check to ensure they're good
-    let (minimum_shares, num_shares) = match get_shares(&args[3], &args[4]) {
-        Some((min, max)) => (min, max),
-        None => {
-            println!("Exiting...");
-            return;
+    else if split_strings.contains(first_arg) {
+        if args.len() < 5 {
+            println!("{}", TOO_FEW_ARGS_STRING);
         }
-    };
+        
+        let file_name = &args[2];
     
-    // Set a minimum threshold of shares
-    let sharks = Sharks(minimum_shares as u8);
-    // get the secret
-    let dealer = sharks.dealer((&args[2]).as_bytes());
-    // Get number of shares
-    let shares: Vec<Share> = dealer.take(num_shares as usize).collect();
+        // parse the shares and check to ensure they're good
+        let (minimum_shares, num_shares) = match get_shares(&args[3], &args[4]) {
+            Some((min, max)) => (min, max),
+            None => {
+                println!("Exiting...");
+                return;
+            }
+        };
 
-    println!("Breaking {} into {} shares, requiring {} to recover",
-             file_name,
-             num_shares,
-             minimum_shares);
-    
-    // Recover the original secret!
-    let secret = sharks.recover(shares.as_slice()).unwrap();
-    println!("{:?}", str::from_utf8(&secret).unwrap());
+        split_shares(file_name.to_string(), minimum_shares, num_shares);
+    }
+    else {
+        println!("Unknown qualifier. Use \"horcrux -h\" or \"horcrux --help \" for help.");
+    }
 }
 
 fn get_shares(minimum: &String, total: &String) -> Option<(u8, usize)> {
