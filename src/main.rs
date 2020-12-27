@@ -68,7 +68,19 @@ fn main() {
         split_shares(file_name.to_string(), minimum_shares, num_shares);
     }
     else if recover_strings.contains(first_arg) {
-        recover_shares();
+        if args.len() < 4 {
+            println!("{}", TOO_FEW_ARGS_STRING);
+            return;
+        }
+        let file_name = &args[2];
+
+        // add all recovery shares to a vector to use in a recovery attempt
+        let mut r_shares: Vec<String> = Vec::new();
+        for share in 3..args.len() {
+            r_shares.push(args[share].to_string());
+        }
+        
+        recover_shares(file_name.to_string(), r_shares);
     }
     else {
         println!("Unknown qualifier. Use \"horcrux -h\" or \"horcrux --help \" for help.");

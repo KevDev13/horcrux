@@ -3,6 +3,8 @@
 //
 // Functions used to recover secret file from shares
 
-pub fn recover_shares() {
-    println!("Recover strings in work...");
+use sharks::{ Sharks, Share };
+
+pub fn recover_shares(file_name: String, shares: Vec<String>) {
+    println!("Recovering shares into file {}", file_name);
 }
