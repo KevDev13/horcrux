@@ -1,3 +1,16 @@
+// main.rs
+// Author: Kevin Garner, kevin@kgar.net
+//
+// Horcrux is an application that will split a file into
+// multiple shares using Shamir's Secret Sharing. This will
+// allow the separating of files across different locations
+// (i.e. cloud services, USB drives, etc) while still allowing
+// the loss of 1 or more shares with the ability to recover
+// the primary file at the end.
+//
+// License information can be found at the repo:
+// https://github.com/KevDev13/horcrux
+
 //use sharks::{ Sharks, Share };
 use std::{ str, env };
 
