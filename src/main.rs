@@ -102,7 +102,7 @@ fn get_shares(minimum: &String, total: &String) -> Option<(u8, usize)> {
     }
 
     // enforce a maximum
-    const MAX_MAX: usize = 2055;
+    const MAX_MAX: usize = 256;
     if total_as_number > MAX_MAX {
         println!("Total number of shares must be less than {}", MAX_MAX+1);
         return None;
