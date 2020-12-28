@@ -9,8 +9,11 @@ use std::{ io::prelude::*, fs::{ self, File } };
 pub fn split_shares(file_name: String, min_shares: u8, total_shares: usize) {
     // Set a minimum threshold of shares
     let sharks = Sharks(min_shares);
+    // read input file into vector
+    let all_info = fs::read(&file_name)
+        .expect("Error reading input file");
     // get iterator over the shares for the secret
-    let dealer = sharks.dealer((file_name).as_bytes());
+    let dealer = sharks.dealer(&all_info);
     // Get shares
     let shares: Vec<Share> = dealer.take(total_shares).collect();
 
@@ -18,7 +21,7 @@ pub fn split_shares(file_name: String, min_shares: u8, total_shares: usize) {
              file_name,
              total_shares,
              min_shares);
-
+    
     // create main file with information required to recover
     // this file can be distributed with all shares
     let header_file_name = String::from("header.txt");
