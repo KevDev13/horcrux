@@ -4,7 +4,7 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/KevDev13/horcrux?style=plastic)
 ![GitHub last commit](https://img.shields.io/github/last-commit/KevDev13/horcrux?color=green&style=plastic)
 
-Horcrux is a CLI utility that will take a file and use Shamir's Secret Sharing Scheme to break it into multiple files.
+Horcrux is a CLI utility that will take a file and use Shamir's Secret Sharing Scheme to break it into multiple files. It is still a work in progress, and has some problems still, so use at your own risk.
 
 Usage:
 
