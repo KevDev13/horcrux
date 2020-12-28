@@ -1,7 +1,5 @@
 # Horcrux
 
-[![Build Status](https://travis-ci.com/KevDev13/horcrux.svg?branch=main)](https://travis-ci.com/KevDev13/horcrux)
-
 Horcrux is a CLI utility that will take a file and use Shamir's Secret Sharing Scheme to break it into multiple files.
 
 Usage:
