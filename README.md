@@ -1,12 +1,10 @@
 # Horcrux
 
-[![Build Status](https://travis-ci.com/KevDev13/horcrux.svg?branch=main)](https://travis-ci.com/KevDev13/horcrux)
-
 Horcrux is a CLI utility that will take a file and use Shamir's Secret Sharing Scheme to break it into multiple files.
 
 Usage:
 
-To split a file, after building, run .`/horcrux -s [filename] [minimum shares] [total shares]`
+To split a file, after building, run `./horcrux -s [filename] [minimum shares] [total shares]`
 
 Example:
 ```
@@ -20,7 +18,7 @@ Example:
 ```
 ./horcrux -r output.txt share1.txt share3.txt share5.txt
 ```
-The above will recover the secret file into output.txt.from the share files listed after output.txt. If not enough shares are present, the file will not be created.
+The above will recover the secret file into output.txt from the share files listed after output.txt. If not enough shares are present, the file will not be created.
 
 NOTE: when splitting a file, a file named `header.txt` is created. This file is **required** in order to recover the secret. On the to-do list is to no longer require this file, but for now it is required. Sorry.
 
