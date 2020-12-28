@@ -9,8 +9,8 @@ use std::{ io::prelude::*,
            str,
            convert::TryFrom };
 
-pub fn recover_shares(file_name: String, share_files: Vec<String>) {
-    println!("Recovering shares into file {}", file_name);
+pub fn recover_shares(output_file: String, share_files: Vec<String>) {
+    println!("Recovering shares into file {}", output_file);
 
     // read the min shares required from the header file
     let min_data = fs::read_to_string("header.txt")
@@ -37,7 +37,7 @@ pub fn recover_shares(file_name: String, share_files: Vec<String>) {
     let sharks = Sharks(min_shares);
     let secret = sharks.recover(&shares).unwrap();
 
-    fs::write(file_name, str::from_utf8(&secret).unwrap())
+    fs::write(output_file, str::from_utf8(&secret).unwrap())
         .expect("Error writing output file");
     //println!("{:?}", str::from_utf8(&secret).unwrap());
 }
