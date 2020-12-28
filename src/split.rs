@@ -4,11 +4,7 @@
 // Functions used to split file into multiple shares
 
 use sharks::{ Sharks, Share };
-use std::{
-    str,
-    io,
-    io::prelude::*,
-    fs::File };
+use std::{ io::prelude::*, fs::File };
 
 pub fn split_shares(file_name: String, min_shares: u8, total_shares: usize) {
     // Set a minimum threshold of shares
@@ -29,10 +25,7 @@ pub fn split_shares(file_name: String, min_shares: u8, total_shares: usize) {
                                                   + &file_number.to_string()
                                                   + &".txt".to_string());
         let mut file = File::create(share_file_name).expect("Error in creating output file");
-        file.write_all(&Vec::from(&share)).expect("Error in writing file");;
+        file.write_all(&Vec::from(&share)).expect("Error in writing file");
         file_number += 1;
     }
-    // Recover the original secret!
-    //let secret = sharks.recover(shares.as_slice()).unwrap();
-    //println!("{:?}", str::from_utf8(&secret).unwrap());
 }
