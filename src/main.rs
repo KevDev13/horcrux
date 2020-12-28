@@ -11,9 +11,9 @@
 // License information can be found at the repo:
 // https://github.com/KevDev13/horcrux
 
-//use sharks::{ Sharks, Share };
 use std::{ str, env };
 
+// horcrux-specific crates
 mod help;
 mod split;
 mod recover;
@@ -33,8 +33,10 @@ fn main() {
         return;
     }
 
+    // get the first argument, which should be what the user wants to do
     let first_arg = &args[1];
-    
+
+    // strings to check for what the user wants to do
     let help_strings: Vec<String> = vec![String::from("-h"),
                                          String::from("--help"),
                                          String::from("help")];
@@ -44,34 +46,41 @@ fn main() {
     let recover_strings: Vec<String> = vec![String::from("-r"),
                                             String::from("--recover"),
                                             String::from("recover")];
-    
+
+    // if user wants to list help
     if help_strings.contains(first_arg) {
         print_help();
         return;
     }
+    // else if user wants to split strings
     else if split_strings.contains(first_arg) {
         if args.len() < 5 {
             println!("{}", TOO_FEW_ARGS_STRING);
         }
-        
+
+        // input file name
         let file_name = &args[2];
     
-        // parse the shares and check to ensure they're good
+        // parse the shares and error check them before proceeding
         let (minimum_shares, num_shares) = match get_shares(&args[3], &args[4]) {
             Some((min, max)) => (min, max),
             None => {
-                println!("Exiting...");
+                println!("Exiting..."); // TODO: make this error message better
                 return;
             }
         };
 
+        // split the shares into the appropriate files
         split_shares(file_name.to_string(), minimum_shares, num_shares);
     }
+    // else if the user wants to recover a secret
     else if recover_strings.contains(first_arg) {
         if args.len() < 4 {
             println!("{}", TOO_FEW_ARGS_STRING);
             return;
         }
+
+        // file name where user wants to output the secret
         let file_name = &args[2];
 
         // add all recovery shares to a vector to use in a recovery attempt
@@ -79,23 +88,30 @@ fn main() {
         for share in 3..args.len() {
             r_shares.push(args[share].to_string());
         }
-        
+
+        // attempt to recover the shares
         recover_shares(file_name.to_string(), r_shares);
     }
+    // if get here, the user typed in an unknown command and we don't know what to do.
     else {
         println!("Unknown qualifier. Use \"horcrux -h\" or \"horcrux --help \" for help.");
     }
 }
 
 fn get_shares(minimum: &String, total: &String) -> Option<(u8, usize)> {
+    // parse the share numbers from strings to numbers.
     let minimum_as_number = minimum.parse::<i32>().expect("Minimum shares not an integer");
     let total_as_number = total.parse::<usize>().expect("Total shares not an integer");
 
+    // need at least 1 minimum share
+    // TODO: might want to make this 2, since only having one share as minimum
+    // seems counter-productive
     if minimum_as_number <= 0 {
         println!("Minimum number of shares must be a positive integer");
         return None;
     }
 
+    // GF256 can't handle more than 256 fields
     if minimum_as_number > 255 {
         println!("Minimum number of shares must be less than 256");
         return None;
@@ -108,7 +124,8 @@ fn get_shares(minimum: &String, total: &String) -> Option<(u8, usize)> {
         return None;
     }
         
-
+    // need at least one share
+    // TODO: make this 2?
     if total_as_number <= 0 {
         println!("Total number of shares must be a positive number");
         return None;
@@ -120,6 +137,7 @@ fn get_shares(minimum: &String, total: &String) -> Option<(u8, usize)> {
         println!("Total number of shares must be at least 1 greater than minimum number of shares");
         return None;
     }
-    
+
+    // if we get here, then all error checks passed, so return the values
     Some((minimum_as_number as u8, total_as_number as usize))
 }

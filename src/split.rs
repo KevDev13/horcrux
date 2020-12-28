@@ -2,12 +2,16 @@
 // Author: Kevin Garner, kevin@kgar.net
 //
 // Functions used to split file into multiple shares
+//
+// This file is part of the Horcrux program.
+// License information can be found at the repo:
+// https://github.com/KevDev13/horcrux
 
 use sharks::{ Sharks, Share };
 use std::{ io::prelude::*, fs::{ self, File } };
 
 pub fn split_shares(file_name: String, min_shares: u8, total_shares: usize) {
-    // Set a minimum threshold of shares
+    // Set the minimum threshold of shares
     let sharks = Sharks(min_shares);
     // read input file into vector
     let all_info = fs::read(&file_name)
