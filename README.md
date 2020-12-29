@@ -1,5 +1,6 @@
 # Horcrux
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 ![Rust](https://github.com/KevDev13/horcrux/workflows/Rust/badge.svg?branch=main)
 ![GitHub repo size](https://img.shields.io/github/repo-size/KevDev13/horcrux?style=plastic)
 ![GitHub last commit](https://img.shields.io/github/last-commit/KevDev13/horcrux?color=green&style=plastic)
