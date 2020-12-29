@@ -35,14 +35,22 @@ pub fn recover_shares(output_file: String, share_files: Vec<String>) {
         all_shares.push(buffer);
     }
 
-    // Redover the secret
+    // Recover the secret
     let shares: Vec<Share> = all_shares.iter()
         .map(|s| Share::try_from(s.as_slice()).unwrap()).collect();
     let sharks = Sharks(min_shares);
     let secret = sharks.recover(&shares).unwrap();
-
-    // write secret to the output file provided
-    fs::write(output_file, str::from_utf8(&secret).unwrap())
-        .expect("Error writing output file");
-    //println!("{:?}", str::from_utf8(&secret).unwrap());
+    
+    let s = str::from_utf8(&secret);
+    match s {
+        Err(_) => {
+            println!("Error recovering file {}", output_file);
+        }
+        Ok(s) => {
+            // write secret to the output file provided
+            fs::write(output_file, s)
+                .expect("Error writing output file");
+            //println!("{:?}", str::from_utf8(&secret).unwrap());
+        }
+    }
 }
