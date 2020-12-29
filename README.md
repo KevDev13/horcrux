@@ -1,6 +1,6 @@
 # Horcrux
 
-![Rust](https://github.com/KevDev13/horcrux/workflows/CI/badge.svg?branch=main)
+![CI](https://github.com/KevDev13/horcrux/workflows/CI/badge.svg?branch=main)
 ![GitHub repo size](https://img.shields.io/github/repo-size/KevDev13/horcrux?style=plastic)
 ![GitHub last commit](https://img.shields.io/github/last-commit/KevDev13/horcrux?color=green&style=plastic)
 
