@@ -1,11 +1,11 @@
 # Horcrux
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Rust](https://github.com/KevDev13/horcrux/workflows/Rust/badge.svg?branch=main)
+![CI](https://github.com/KevDev13/horcrux/workflows/CI/badge.svg?branch=main)
 ![GitHub repo size](https://img.shields.io/github/repo-size/KevDev13/horcrux?style=plastic)
 ![GitHub last commit](https://img.shields.io/github/last-commit/KevDev13/horcrux?color=green&style=plastic)
 
-Horcrux is a CLI utility that will take a file and use Shamir's Secret Sharing Scheme to break it into multiple files.
+Horcrux is a CLI utility that will take a file and use Shamir's Secret Sharing Scheme to break it into multiple files. It is still a work in progress, and has some problems still, so use at your own risk.
 
 Usage:
 
