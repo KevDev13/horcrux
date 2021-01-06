@@ -14,10 +14,10 @@
 use std::{ str, env };
 
 // horcrux-specific crates
-mod help;
+mod support;
 mod split;
 mod recover;
-use help::*;
+use support::*;
 use split::*;
 use recover::*;
 
