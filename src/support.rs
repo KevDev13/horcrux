@@ -9,7 +9,28 @@
 pub const TOO_FEW_ARGS_STRING: &str = "Too few arguments, exiting...";
 
 pub fn print_help() {
-    println!("Help is in work... sorry");
+    const REPO: &str = "https://github.com/KevDev13/horcrux";
+    println!("Horcrux v0.1.0");
+    println!("License information at: {}/blob/main/LICENSE", REPO);
+    println!();
+    println!("Warning: Horcrux is still a work in progress. Until Horcrux v1.0 is");
+    println!("released, use at your own risk.");
+    println!();
+    println!("Commands:");
+    println!();
+    println!(" -h, --help, help             show this menu");
+    println!(" -s, --split, split           split file");
+    println!(" -r, --recover, recover       recover file");
+    println!();
+    println!("Split example:");
+    println!(" ./horcrux -s test.txt 3 5");
+    println!(" This will split test.txt into 5 separate shares, requiring 3 to recover");
+    println!();
+    println!("Recover example:");
+    println!(" ./horcrux --recover out.txt share1.txt share3.txt share4.txt");
+    println!(" This will recover the secret file into out.txt using the share files");
+    println!();
+    println!("Please report bugs here: {}/issues", REPO);
 }
 
 pub fn get_shares(minimum: &String, total: &String) -> Option<(u8, usize)> {
