@@ -8,9 +8,11 @@
 
 pub const TOO_FEW_ARGS_STRING: &str = "Too few arguments, exiting...";
 
+const HORCRUX_VERSION: &str = "0.2.0";
+const REPO: &str = "https://github.com/KevDev13/horcrux";
+
 pub fn print_help() {
-    const REPO: &str = "https://github.com/KevDev13/horcrux";
-    println!("Horcrux v0.1.0");
+    println!("Horcrux v{}", HORCRUX_VERSION);
     println!("License information at: {}/blob/main/LICENSE", REPO);
     println!();
     println!("Warning: Horcrux is still a work in progress. Until Horcrux v1.0 is");
