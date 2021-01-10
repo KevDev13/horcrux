@@ -36,8 +36,7 @@ pub fn split_shares(file_name: String, min_shares: u8, total_shares: usize) {
     let mut file_number = 1;
     for share in shares {
         let share_file_name: String = String::from("share".to_string()
-                                                  + &file_number.to_string()
-                                                  + &".txt".to_string());
+                                                  + &file_number.to_string());
         let mut file = File::create(share_file_name)
             .expect("Error in creating output file");
         file.write_all(&Vec::from(&share))
