@@ -7,7 +7,7 @@
 
 Horcrux is a CLI utility that will take a file and use Shamir's Secret Sharing Scheme to break it into multiple files. It is still a work in progress, and has some problems still, so use at your own risk.
 
-Usage:
+## Usage
 
 **Currently, Horcrux only works for text files. This is planned to be updated before v1.0**
 
